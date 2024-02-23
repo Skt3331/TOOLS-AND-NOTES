@@ -1,1 +1,10 @@
 
+1- cssbud.com/css-generator/css-glow-generator/
+
+2- 10015.io/tools/css-glassmorphism-generator
+
+3- cssgrid-generator.netlify.app
+
+4- 9elements.github.io/fancy-border-radius/
+
+5- animista.net
