@@ -1,4 +1,11 @@
 
+
+hype4.academy/tools/glassmorphism-generator
+
+hype4.academy/tools/claymorphism-generator
+
+getcssscan.com/css-box-shadow-examples
+
 1- cssbud.com/css-generator/css-glow-generator/
 
 2- 10015.io/tools/css-glassmorphism-generator
@@ -8,3 +15,6 @@
 4- 9elements.github.io/fancy-border-radius/
 
 5- animista.net
+ 
+
+
