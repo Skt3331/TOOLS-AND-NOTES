@@ -1,0 +1,92 @@
+const Joi = require('joi');
+
+const schema = Joi.object({
+    username: Joi.string()
+        .alphanum()
+        .min(3)
+        .max(30)
+        .required(),
+
+    password: Joi.string()
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+
+    repeat_password: Joi.ref('password'),
+
+    access_token: [
+        Joi.string(),
+        Joi.number()
+    ],
+
+    birth_year: Joi.number()
+        .integer()
+        .min(1900)
+        .max(2013),
+
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+})
+    .with('username', 'birth_year')
+    .xor('password', 'access_token')
+    .with('password', 'repeat_password');
+
+
+schema.validate({ username: 'abc', birth_year: 1994 });
+// -> { value: { username: 'abc', birth_year: 1994 } }
+
+schema.validate({});
+// -> { value: {}, error: '"username" is required' }
+
+// Also -
+
+try {
+    const value = await schema.validateAsync({ username: 'abc', birth_year: 1994 });
+}
+catch (err) { }
+
+
+
+//module of joi
+
+
+const Joi = require("joi");
+
+const listingSchema = Joi.object({
+    listing: Joi.object({
+        title: Joi.string().required(),
+        description: Joi.string().required(),
+        location: Joi.string().required(), // Corrected spelling of 'location'
+        country: Joi.string().required(),
+        image: Joi.string().allow("", null),
+        price: Joi.number().required().min(0),
+    }).required(),
+});
+
+module.exports = { listingSchema };
+
+//app.js
+
+const { listingSchema } = require("./Schema.js");
+
+//create route
+app.post("/listings",wrapAsync(async(req,res,next)=>
+{
+    // let {title,description,image,price,country}=req.body;
+   let listing=req.body.listing;
+    // console.log(listing);\
+
+   
+    //  if(!newlisting.title|!newlisting.description|!newlisting.image|!newlisting.country|!newlisting.location)
+    //  {
+    //  throw new ExpressError(544,"invalid all input fiels are required");
+    //  }
+    //  else
+    //  {
+
+    let result=listingSchema.validate(req.body);      ///validate the body forms thst sis mention in joi
+    console.log("result",result);
+    const newlisting=new Listing(req.body.listing);  ///////////
+       await newlisting.save();
+    res.redirect("/listings");
+     }
+     
+));
